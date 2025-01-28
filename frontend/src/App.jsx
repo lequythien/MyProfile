@@ -7,6 +7,7 @@ import Home from "./pages/Home";
 import Project from "./pages/Project";
 import Contact from "./pages/Contact";
 import About from "./pages/About";
+// import Marquee from "react-fast-marquee";
 
 const App = () => {
   return (

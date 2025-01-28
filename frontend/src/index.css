@@ -45,3 +45,27 @@
   font-weight: 600;
   font-size: 1rem;
 }
+
+/* Tailwind custom animation for border color */
+@keyframes borderColorAnimation {
+  0% {
+    border-color: #ff007f; /* Pink */
+  }
+  25% {
+    border-color: #ff7f00; /* Orange */
+  }
+  50% {
+    border-color: #00ff7f; /* Green */
+  }
+  75% {
+    border-color: #007fff; /* Blue */
+  }
+  100% {
+    border-color: #ff007f; /* Pink */
+  }
+}
+
+.animate-border {
+  border: 4px solid transparent;
+  animation: borderColorAnimation 4s infinite;
+}
