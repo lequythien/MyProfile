@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import logo from "../assets/logo.png";
 import { FaSun, FaMoon, FaBars, FaTimes } from "react-icons/fa";
@@ -9,6 +9,7 @@ const Navbar = () => {
   const [darkMode, setDarkMode] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [language, setLanguage] = useState("en");
+  const menuRef = useRef(null);
 
   const toggleTheme = () => {
     setDarkMode(!darkMode);
@@ -19,9 +20,27 @@ const Navbar = () => {
     setIsMenuOpen(!isMenuOpen);
   };
 
+  const closeMenu = () => {
+    setIsMenuOpen(false);
+  };
+
   const toggleLanguage = (e) => {
     setLanguage(e.target.value);
   };
+
+  // Đóng menu khi click bên ngoài
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (menuRef.current && !menuRef.current.contains(event.target)) {
+        closeMenu();
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
 
   return (
     <div
@@ -38,155 +57,66 @@ const Navbar = () => {
 
       {/* Desktop Navigation Menu */}
       <ul className="hidden md:flex items-center gap-5 font-medium">
-        <NavLink
-          to="/"
-          className={({ isActive }) =>
-            isActive
-              ? `${
-                  darkMode ? "underline text-blue-300" : "underline text-blue-500"
-                }`
-              : `hover:${
-                  darkMode ? "text-blue-300" : "text-blue-500"
-                } cursor-pointer`
-          }
-        >
-          <li className="py-1 text-base">
-            {language === "en" ? "Home" : "Trang chủ"}
-          </li>
-        </NavLink>
-        <NavLink
-          to="/project"
-          className={({ isActive }) =>
-            isActive
-              ? `${
-                  darkMode ? "underline text-blue-300" : "underline text-blue-500"
-                }`
-              : `hover:${
-                  darkMode ? "text-blue-300" : "text-blue-500"
-                } cursor-pointer`
-          }
-        >
-          <li className="py-1 text-base">
-            {language === "en" ? "Projects" : "Dự án"}
-          </li>
-        </NavLink>
-        <NavLink
-          to="/contact"
-          className={({ isActive }) =>
-            isActive
-              ? `${
-                  darkMode ? "underline text-blue-300" : "underline text-blue-500"
-                }`
-              : `hover:${
-                  darkMode ? "text-blue-300" : "text-blue-500"
-                } cursor-pointer`
-          }
-        >
-          <li className="py-1 text-base">
-            {language === "en" ? "Contact" : "Liên hệ"}
-          </li>
-        </NavLink>
-        <NavLink
-          to="/about"
-          className={({ isActive }) =>
-            isActive
-              ? `${
-                  darkMode ? "underline text-blue-300" : "underline text-blue-500"
-                }`
-              : `hover:${
-                  darkMode ? "text-blue-300" : "text-blue-500"
-                } cursor-pointer`
-          }
-        >
-          <li className="py-1 text-base">
-            {language === "en" ? "About" : "Giới thiệu"}
-          </li>
-        </NavLink>
+        {["/", "/project", "/contact", "/about"].map((path, index) => (
+          <NavLink
+            key={index}
+            to={path}
+            className={({ isActive }) =>
+              isActive
+                ? `${
+                    darkMode
+                      ? "underline text-blue-300"
+                      : "underline text-blue-500"
+                  }`
+                : `hover:${
+                    darkMode ? "text-blue-300" : "text-blue-500"
+                  } cursor-pointer`
+            }
+          >
+            <li className="py-1 text-base">
+              {language === "en"
+                ? ["Home", "Projects", "Contact", "About"][index]
+                : ["Trang chủ", "Dự án", "Liên hệ", "Giới thiệu"][index]}
+            </li>
+          </NavLink>
+        ))}
       </ul>
 
       {/* Mobile Menu Button */}
-      <button
-        onClick={toggleMenu}
-        className="md:hidden text-2xl focus:outline-none"
-      >
+      <button onClick={toggleMenu} className="md:hidden text-2xl focus:outline-none">
         {isMenuOpen ? <FaTimes /> : <FaBars />}
       </button>
 
       {/* Mobile Dropdown Menu */}
       {isMenuOpen && (
-        <ul className="absolute top-16 left-0 w-full bg-white text-gray-800 shadow-lg p-4 md:hidden">
-          <NavLink
-            to="/"
-            className={({ isActive }) =>
-              isActive
-                ? `${
-                    darkMode
-                      ? "underline text-blue-300"
-                      : "underline text-blue-500"
-                  }`
-                : `hover:${
-                    darkMode ? "text-blue-300" : "text-blue-500"
-                  } cursor-pointer`
-            }
-          >
-            <li className="py-2 text-base">
-              {language === "en" ? "Home" : "Trang chủ"}
-            </li>
-          </NavLink>
-          <NavLink
-            to="/project"
-            className={({ isActive }) =>
-              isActive
-                ? `${
-                    darkMode
-                      ? "underline text-blue-300"
-                      : "underline text-blue-500"
-                  }`
-                : `hover:${
-                    darkMode ? "text-blue-300" : "text-blue-500"
-                  } cursor-pointer`
-            }
-          >
-            <li className="py-2 text-base">
-              {language === "en" ? "Projects" : "Dự án"}
-            </li>
-          </NavLink>
-          <NavLink
-            to="/contact"
-            className={({ isActive }) =>
-              isActive
-                ? `${
-                    darkMode
-                      ? "underline text-blue-300"
-                      : "underline text-blue-500"
-                  }`
-                : `hover:${
-                    darkMode ? "text-blue-300" : "text-blue-500"
-                  } cursor-pointer`
-            }
-          >
-            <li className="py-2 text-base">
-              {language === "en" ? "Contact" : "Liên hệ"}
-            </li>
-          </NavLink>
-          <NavLink
-            to="/about"
-            className={({ isActive }) =>
-              isActive
-                ? `${
-                    darkMode
-                      ? "underline text-blue-300"
-                      : "underline text-blue-500"
-                  }`
-                : `hover:${
-                    darkMode ? "text-blue-300" : "text-blue-500"
-                  } cursor-pointer`
-            }
-          >
-            <li className="py-2 text-base">
-              {language === "en" ? "About" : "Giới thiệu"}
-            </li>
-          </NavLink>
+        <ul
+          ref={menuRef}
+          className="absolute top-16 left-0 w-full bg-white text-gray-800 shadow-lg p-4 md:hidden"
+        >
+          {["/", "/project", "/contact", "/about"].map((path, index) => (
+            <NavLink
+              key={index}
+              to={path}
+              onClick={closeMenu} // Đóng menu khi chọn trang
+              className={({ isActive }) =>
+                isActive
+                  ? `${
+                      darkMode
+                        ? "underline text-blue-300"
+                        : "underline text-blue-500"
+                    }`
+                  : `hover:${
+                      darkMode ? "text-blue-300" : "text-blue-500"
+                    } cursor-pointer`
+              }
+            >
+              <li className="py-2 text-base">
+                {language === "en"
+                  ? ["Home", "Projects", "Contact", "About"][index]
+                  : ["Trang chủ", "Dự án", "Liên hệ", "Giới thiệu"][index]}
+              </li>
+            </NavLink>
+          ))}
         </ul>
       )}
 

@@ -27,7 +27,7 @@ const Header = () => {
         <h2 className="text-3xl sm:text-4xl h-20 font-extrabold bg-clip-text text-transparent bg-gradient-to-r from-pink-400 to-purple-500">
           <Typewriter
             options={{
-              strings: ["I'm Lê Quý Thiện", "Inter Frontend Developer🚀"],
+              strings: ["I'm Lê Quý Thiện", "Inter Frontend Developer"],
               autoStart: true,
               loop: true,
             }}
@@ -38,9 +38,27 @@ const Header = () => {
 
         {/* Social Icons */}
         <motion.div className="flex space-x-4 text-pink-400 text-2xl justify-center md:justify-start">
-          <FaFacebookF className="hover:text-blue-500 cursor-pointer transition" />
-          <FaTiktok className="hover:text-black cursor-pointer transition" />
-          <FaGithub className="hover:text-gray-500 cursor-pointer transition" />
+          <a
+            href="https://www.facebook.com/quythien.le.50"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <FaFacebookF className="hover:text-blue-500 cursor-pointer transition" />
+          </a>
+          <a
+            href="https://www.tiktok.com/@zacubj2"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <FaTiktok className="hover:text-black cursor-pointer transition" />
+          </a>
+          <a
+            href="https://github.com/lequythien"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <FaGithub className="hover:text-gray-500 cursor-pointer transition" />
+          </a>
         </motion.div>
 
         {/* Buttons */}
