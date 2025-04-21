@@ -1,7 +1,7 @@
 import React from "react";
 import { motion } from "framer-motion";
-import { FaFacebookF, FaGithub, FaTiktok, FaDownload } from "react-icons/fa";
-import Typewriter from "typewriter-effect"; // Hiệu ứng đánh máy
+import { FaFacebookF, FaGithub, FaTiktok } from "react-icons/fa";
+import Typewriter from "typewriter-effect";
 import Button from "../components/ui/Button";
 
 const Header = () => {
@@ -27,14 +27,14 @@ const Header = () => {
         <h2 className="text-3xl sm:text-4xl h-20 font-extrabold bg-clip-text text-transparent bg-gradient-to-r from-pink-400 to-purple-500">
           <Typewriter
             options={{
-              strings: ["I'm Lê Quý Thiện", "Inter Frontend Developer"],
+              strings: ["I'm Lê Quý Thiện", "Frontend Developer"],
               autoStart: true,
               loop: true,
             }}
           />
         </h2>
 
-        <p className="text-red-400 text-lg font-medium">MERN Stack Developer</p>
+        <p className="text-red-400 text-lg font-medium">FRONTEND DEVELOPER</p>
 
         {/* Social Icons */}
         <motion.div className="flex space-x-4 text-pink-400 text-2xl justify-center md:justify-start">
